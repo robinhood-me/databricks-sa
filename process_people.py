@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument(
     "--input-path",
-    default="dbfs:/tmp/people_from_notebook_csv"
+    default="/Volumes/main/default/my_volume/people_from_notebook_csv"
 )
 
 args = parser.parse_args()
