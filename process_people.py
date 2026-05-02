@@ -7,20 +7,15 @@ from pyspark.sql.functions import col, upper
 parser = argparse.ArgumentParser()
 
 parser.add_argument(
-    "--input-path",
-    default="/Volumes/main/default/my_volume/people_from_notebook_csv"
+    "--table-name",
+    default="workspace.default.people_from_notebook"
 )
 
 args = parser.parse_args()
 
 spark = SparkSession.builder.getOrCreate()
 
-df = (
-    spark.read
-    .option("header", "true")
-    .option("inferSchema", "true")
-    .csv(args.input_path)
-)
+df = spark.table(args.table_name)
 
 processed_df = (
     df
@@ -28,7 +23,7 @@ processed_df = (
     .withColumn("age_next_year", col("age") + 1)
 )
 
-print("Original DataFrame from notebook:")
+print("Original DataFrame from notebook table:")
 df.show()
 
 print("Processed DataFrame from Python script:")
